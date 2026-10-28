@@ -3,848 +3,1121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>English Writing Coach Pro</title>
-  <meta name="description" content="English Writing Coach Pro helps learners improve vocabulary, grammar, sentence flow, and writing confidence." />
+  <title>English Writing Lab</title>
   <style>
-    :root{
-      --bg1:#edf5ff;
-      --bg2:#ebfff7;
-      --bg3:#fff7ef;
-      --panel:#f8fbff;
-      --panel-2:#f3f7ff;
-      --primary:#7c8ef9;
-      --primary-2:#b38dfd;
-      --success:#70d7a2;
-      --warning:#ffc98c;
-      --danger:#ff7d9d;
-      --text:#1e2d46;
-      --muted:#6e819b;
-      --shadow:rgba(19,28,41,0.12);
-      --soft-white:rgba(255,255,255,0.75);
+    :root {
+      --bg-1: #eef5ff;
+      --bg-2: #ecfaf4;
+      --bg-3: #fff5ee;
+      --panel: rgba(255,255,255,0.7);
+      --panel-strong: rgba(248,250,255,0.9);
+      --card: rgba(255,255,255,0.78);
+      --primary: #7d8ef8;
+      --primary-2: #a17dff;
+      --green: #73d8ad;
+      --green-2: #90ecc4;
+      --orange: #ffc98d;
+      --orange-2: #ffbc8a;
+      --pink: #ffafd5;
+      --red: #ff7e99;
+      --ink: #20324d;
+      --muted: #647791;
+      --shadow-dark: rgba(152,167,197,0.32);
+      --shadow-light: rgba(255,255,255,0.8);
+      --radius-xl: 36px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
     }
 
     body.dark {
-      --bg1:#171f2c;
-      --bg2:#1a2f39;
-      --bg3:#202d39;
-      --panel:#1d2b37;
-      --panel-2:#243444;
-      --primary:#9eb3ff;
-      --primary-2:#d8bcff;
-      --success:#9ee8bd;
-      --warning:#ffd49d;
-      --danger:#ff9db0;
-      --text:#edf7ff;
-      --muted:#d5edff;
-      --shadow:rgba(0,0,0,0.38);
-      --soft-white:rgba(255,255,255,0.06);
+      --bg-1: #171f2d;
+      --bg-2: #172a36;
+      --bg-3: #1c2435;
+      --panel: rgba(25,33,46,0.78);
+      --panel-strong: rgba(22,32,45,0.9);
+      --card: rgba(35,45,60,0.82);
+      --primary: #90a8ff;
+      --primary-2: #b18cff;
+      --green: #7be4b4;
+      --green-2: #a5f4d0;
+      --orange: #ffc98d;
+      --orange-2: #ffb581;
+      --pink: #ffafd1;
+      --red: #ff8ca2;
+      --ink: #edf4ff;
+      --muted: #b8cae0;
+      --shadow-dark: rgba(2,4,10,0.55);
+      --shadow-light: rgba(120,130,150,0.08);
     }
 
-    *{ box-sizing:border-box; }
+    * { box-sizing: border-box; }
 
-    html,body{
-      margin:0;
-      min-height:100%;
-      font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background:linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
-      color:var(--text);
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.7), transparent 24%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2), var(--bg-3));
+      color: var(--ink);
+      transition: 0.25s ease;
     }
 
-    body{
-      padding:24px;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
     }
 
-    .app{
-      width:min(1500px,100%);
-      min-height:960px;
-      padding:24px;
-      border-radius:42px;
-      background:rgba(255,255,255,0.08);
-      border:1px solid rgba(255,255,255,0.22);
-      backdrop-filter:blur(14px);
-      box-shadow:22px 22px 46px var(--shadow), -12px -12px 26px rgba(255,255,255,0.7);
+    .app {
+      width: min(1360px, 100%);
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 42px;
+      box-shadow:
+        22px 22px 40px var(--shadow-dark),
+        -18px -18px 28px rgba(255,255,255,0.6);
+      padding: 22px;
+      backdrop-filter: blur(14px);
     }
 
-    .topbar {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-      padding:6px 8px 22px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 6px 8px 20px;
     }
 
     .brand {
-      display:flex;
-      align-items:center;
-      gap:16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .logo {
-      width:68px;
-      height:68px;
-      display:grid;
-      place-items:center;
-      font-size:32px;
-      border-radius:22px;
-      background:linear-gradient(135deg, #edf7ff, #fff0e2);
-      box-shadow:12px 12px 22px rgba(162,173,205,0.14), -12px -12px 22px rgba(255,255,255,0.8);
+      width: 64px;
+      height: 64px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #e5edff, #fbeadf);
+      box-shadow:
+        10px 10px 22px rgba(155,168,193,0.22),
+        -10px -10px 16px rgba(255,255,255,0.75);
+      font-size: 30px;
     }
 
-    h1 { margin:0; font-size:clamp(2rem,2.8vw,3.1rem); letter-spacing:-0.08em; font-weight:900; }
-
-    .actions{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1.55rem, 2vw, 2.5rem);
+      letter-spacing: -0.06em;
+      font-weight: 900;
     }
 
-    .pill{
-      padding:10px 14px;
-      border-radius:999px;
-      font-size:0.72rem;
-      font-weight:800;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-      background:linear-gradient(135deg, #f9fbff, #eef7ff);
-      color:var(--muted);
-      box-shadow:8px 8px 18px rgba(165,176,205,0.12), -8px -8px 16px rgba(255,255,255,0.7);
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .theme-btn, .reset-btn, .speak-btn{
-      border:none;
-      border-radius:18px;
-      padding:12px 16px;
-      background:linear-gradient(135deg, #f7f9ff, #f1f3ff);
-      color:var(--text);
-      font-weight:800;
-      cursor:pointer;
-      box-shadow:9px 9px 20px rgba(167,177,205,0.12), -9px -9px 18px rgba(255,255,255,0.7);
+    .pill {
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f7f9ff, #f2f6ff);
+      color: var(--muted);
+      box-shadow:
+        8px 8px 18px rgba(166,176,198,0.16),
+        -8px -8px 18px rgba(255,255,255,0.7);
     }
 
-    .dashboard{
-      display:grid;
-      grid-template-columns:280px minmax(0,1fr) 330px;
-      gap:22px;
-      margin-top:10px;
+    .toggle-btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 18px;
+      padding: 12px 16px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f2f6ff, #f7f5ff);
+      color: var(--ink);
+      box-shadow:
+        8px 8px 18px rgba(165,176,198,0.18),
+        -8px -8px 18px rgba(255,255,255,0.7);
     }
 
-    .sidebar, .main-panel, .right-panel{ display:grid; gap:18px; }
-
-    .card{
-      background:linear-gradient(135deg, rgba(249,252,255,0.88), rgba(241,246,255,0.82));
-      border-radius:28px;
-      padding:18px;
-      box-shadow:inset 1px 1px 0 rgba(255,255,255,0.9), 12px 12px 24px rgba(167,178,204,0.14), -12px -12px 22px rgba(255,255,255,0.72);
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.75fr;
+      gap: 22px;
     }
 
-    body.dark .card {
-      background:linear-gradient(135deg, rgba(24,35,47,0.9), rgba(28,40,52,0.94));
+    .panel {
+      background: linear-gradient(135deg, rgba(247,250,255,0.8), rgba(241,245,255,0.84));
+      border-radius: var(--radius-xl);
+      box-shadow:
+        inset 1px 1px 0 rgba(255,255,255,0.9),
+        12px 12px 28px rgba(170,180,205,0.18),
+        -12px -12px 24px rgba(255,255,255,0.66);
+      padding: 22px;
     }
 
-    .side-title{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:16px;
-      font-weight:900;
-      letter-spacing:-0.04em;
+    body.dark .panel {
+      background: linear-gradient(135deg, rgba(19,29,40,0.82), rgba(25,35,48,0.84));
     }
 
-    .mini-icon{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg, #fbead9, #f3ebff);
-      box-shadow:8px 8px 18px rgba(166,175,202,0.12), -8px -8px 18px rgba(255,255,255,0.75);
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
-    .lesson-list{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
-
-    .lesson-item{
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
-      padding:12px; border-radius:16px; background:rgba(255,255,255,0.45);
-      color:var(--muted); font-weight:700; box-shadow:inset 1px 1px 0 rgba(255,255,255,0.8);
+    .tab {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f4f8ff, #edf7f3);
+      color: var(--ink);
+      cursor: pointer;
+      box-shadow:
+        8px 8px 18px rgba(165,170,196,0.18),
+        -8px -8px 18px rgba(255,255,255,0.7);
     }
 
-    .lesson-item.active {
-      background:linear-gradient(135deg, rgba(124,142,249,0.14), rgba(179,141,253,0.12));
-      color:var(--text);
+    .tab.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      box-shadow:
+        8px 8px 20px rgba(124,142,248,0.25),
+        -6px -6px 16px rgba(255,255,255,0.45);
     }
 
-    .dot-badge{
-      width:10px; height:10px; border-radius:50%;
-      background:linear-gradient(135deg, var(--success), var(--primary));
+    .level-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
     }
 
-    .progress-box{ margin-top:12px; }
-    .progress-head{
-      display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;
-      color:var(--muted); font-size:0.8rem; font-weight:800;
-    }
-    .progress-track{
-      height:14px; border-radius:999px; background:rgba(255,255,255,0.7); overflow:hidden;
-      box-shadow:inset 4px 4px 8px rgba(166,177,205,0.12);
-    }
-    .progress-fill{
-      width:0%; height:100%; border-radius:inherit;
-      background:linear-gradient(90deg, var(--success), var(--primary));
-      transition:0.25s ease;
+    .level-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f7f9ff, #f3f8ff);
+      color: var(--muted);
+      cursor: pointer;
+      box-shadow:
+        8px 8px 16px rgba(165,174,199,0.12),
+        -8px -8px 18px rgba(255,255,255,0.66);
     }
 
-    .tag{
-      display:inline-block; margin-bottom:10px; padding:9px 12px; border-radius:999px;
-      background:linear-gradient(135deg, rgba(124,142,249,0.12), rgba(179,141,253,0.12));
-      color:var(--muted); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:800;
+    .level-btn.active {
+      background: linear-gradient(135deg, var(--orange), var(--orange-2));
+      color: var(--ink);
     }
 
-    .main-card{ padding:20px; }
-
-    .top-micro{
-      display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
-      margin-bottom:18px;
+    .challenge-card {
+      background: linear-gradient(135deg, #f9faff, #f8f3ff);
+      border-radius: 28px;
+      padding: 20px 20px 18px;
+      box-shadow:
+        inset 1px 1px 0 rgba(255,255,255,0.82),
+        10px 10px 22px rgba(170,180,202,0.14),
+        -10px -10px 18px rgba(255,255,255,0.7);
     }
 
-    .tabs{ display:flex; gap:12px; flex-wrap:wrap; }
-    .tab{
-      border:none; border-radius:16px; padding:14px 18px;
-      background:linear-gradient(135deg, #f4f8ff, #ebfaf2); color:var(--text); font-weight:800; cursor:pointer;
-      box-shadow:8px 8px 18px rgba(166,178,205,0.12), -8px -8px 18px rgba(255,255,255,0.72);
-    }
-    .tab.active{
-      background:linear-gradient(135deg, var(--primary), var(--primary-2)); color:#fff;
+    body.dark .challenge-card {
+      background: linear-gradient(135deg, rgba(29,38,50,0.8), rgba(30,35,47,0.8));
     }
 
-    .level-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
-    .level-btn{
-      border:none; border-radius:14px; padding:10px 14px; background:linear-gradient(135deg, #f7fbff, #eef7ff);
-      color:var(--muted); font-weight:800; cursor:pointer; box-shadow:8px 8px 16px rgba(165,175,200,0.12), -8px -8px 16px rgba(255,255,255,0.72);
-    }
-    .level-btn.active{ background:linear-gradient(135deg, var(--warning), #ffc98f); color:var(--text); }
-
-    .challenge-box{
-      background:linear-gradient(135deg, #fbfcff, #f4eeff); border-radius:28px; padding:20px;
-      box-shadow:inset 1px 1px 0 rgba(255,255,255,0.85), 12px 12px 22px rgba(170,180,202,0.14), -10px -10px 18px rgba(255,255,255,0.72);
-    }
-    body.dark .challenge-box { background:linear-gradient(135deg, rgba(30,39,49,0.9), rgba(31,43,56,0.9)); }
-
-    .meta-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
-    .meta-chip{
-      padding:9px 12px; border-radius:999px; background:rgba(255,255,255,0.75); color:var(--muted); font-size:0.72rem;
-      letter-spacing:0.08em; text-transform:uppercase; font-weight:800; box-shadow:inset 1px 1px 0 rgba(255,255,255,0.8);
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
-    .label{ margin-bottom:12px; color:var(--muted); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:800; }
-    .prompt{ margin:0 0 10px; font-size:clamp(1.9rem,2.9vw,3.2rem); line-height:1.12; letter-spacing:-0.06em; font-weight:900; }
-    .description{ margin:0 0 18px; color:var(--muted); line-height:1.7; font-weight:700; }
-
-    .answer-wrap{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px; }
-    .answer-input, .big-textarea{ width:100%; border:none; outline:none; border-radius:18px; padding:18px; background:rgba(255,255,255,0.82); color:var(--text); font-size:1rem; font-family:inherit; box-shadow:inset 8px 8px 18px rgba(165,176,205,0.08), inset -8px -8px 18px rgba(255,255,255,0.85); }
-    .answer-input{ flex:1; min-width:220px; }
-    .big-textarea{ min-height:160px; resize:vertical; }
-
-    .btn{
-      border:none; border-radius:18px; padding:16px 22px; font-weight:800; cursor:pointer;
-      box-shadow:8px 8px 18px rgba(170,181,205,0.15), -8px -8px 18px rgba(255,255,255,0.72);
-    }
-    .btn.primary{ background:linear-gradient(135deg, var(--primary), var(--primary-2)); color:#fff; }
-    .btn.secondary{ background:linear-gradient(135deg, #fffaf3, #f9f1ff); color:var(--text); }
-
-    .feedback{
-      min-height:92px; display:flex; align-items:center; gap:12px; border-radius:20px; padding:18px; line-height:1.6; font-weight:800;
-      box-shadow:inset 1px 1px 0 rgba(255,255,255,0.75);
-    }
-    .feedback.success{ background:linear-gradient(135deg, #ebfff5, #f4fff8); color:#1b7e63; }
-    .feedback.error{ background:linear-gradient(135deg, #fff1f4, #fffafc); color:#b7516d; }
-    .feedback.neutral{ background:linear-gradient(135deg, #f3f7ff, #fefdfb); color:var(--text); }
-
-    .stats{
-      display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:18px;
-    }
-    .stat{
-      padding:18px 16px; border-radius:20px; background:linear-gradient(135deg, #f9fbff, #edf5ff);
-      box-shadow:8px 8px 18px rgba(164,172,196,0.12), -8px -8px 18px rgba(255,255,255,0.75);
-    }
-    body.dark .stat { background:linear-gradient(135deg, rgba(26,36,49,0.82), rgba(31,39,52,0.9)); }
-    .stat-label{ margin-bottom:8px; color:var(--muted); text-transform:uppercase; letter-spacing:0.13em; font-size:0.72rem; font-weight:800; }
-    .stat-value{ font-size:clamp(1.5rem,2vw,2.6rem); font-weight:900; letter-spacing:-0.06em; }
-
-    .teacher-block{ display:grid; gap:16px; }
-    .teacher-tip{ margin:0; color:var(--muted); line-height:1.7; font-weight:700; }
-    .timer-box{ display:flex; align-items:center; gap:14px; margin-top:8px; color:var(--muted); font-weight:800; }
-    .timer-circle{
-      width:60px; height:60px; display:grid; place-items:center; border-radius:50%; font-weight:900;
-      background:linear-gradient(135deg, #fff8ff, #eef8ff); box-shadow:8px 8px 18px rgba(165,176,208,0.12), -8px -8px 16px rgba(255,255,255,0.7);
+    .meta-chip {
+      background: rgba(255,255,255,0.7);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,0.8);
     }
 
-    .word-cloud{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
-    .word-cloud span{ padding:10px 14px; border-radius:999px; background:linear-gradient(135deg, #fafcff, #edf8f5); font-weight:800; box-shadow:6px 6px 12px rgba(160,170,200,0.12); }
-
-    .rule-line{ display:flex; align-items:center; gap:10px; color:var(--muted); font-weight:700; line-height:1.7; margin-top:12px; }
-    .dot{ width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg, var(--success), var(--primary)); box-shadow:0 0 0 4px rgba(124,142,249,0.12); }
-
-    .achievement-list{ list-style:none; padding:0; margin:0; display:grid; gap:12px; }
-    .achievement-item{
-      display:flex; align-items:center; gap:10px; padding:12px; border-radius:14px; background:rgba(255,255,255,0.42);
-      color:var(--muted); font-weight:700; box-shadow:inset 1px 1px 0 rgba(255,255,255,0.8);
+    .label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
     }
-    .achievement-item.unlocked{ background:linear-gradient(135deg, #ebfff6, #f7fff9); color:#1c7e63; }
-    .achievement-badge{ width:32px; height:32px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(135deg, #ffe7d2, #f4eefe); }
 
-    .xp-card{ display:grid; gap:8px; margin-top:14px; padding:12px 14px; border-radius:18px; background:linear-gradient(135deg, rgba(124,142,249,0.12), rgba(179,141,253,0.12)); color:var(--text); font-weight:800; }
-    .xp-line{ display:flex; justify-content:space-between; gap:10px; align-items:center; color:var(--muted); font-size:0.8rem; }
+    .prompt {
+      margin: 0 0 10px 0;
+      font-size: clamp(1.8rem, 3vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+    }
 
-    #essayContainer{ display:none; margin-bottom:8px; }
+    .description {
+      margin: 0 0 20px 0;
+      color: var(--muted);
+      font-weight: 700;
+      line-height: 1.7;
+    }
 
-    @media (max-width:1100px){ .dashboard{ grid-template-columns:1fr; } .sidebar, .right-panel{ order:2; } .main-panel{ order:1; } }
-    @media (max-width:620px){ body{ padding:14px; } .app{ padding:18px; } .stats{ grid-template-columns:repeat(2,1fr); } .answer-wrap{ flex-direction:column; align-items:stretch; } .btn{ width:100%; } .topbar{ align-items:flex-start; } .top-micro{ display:block; } }
-    @media (max-width:380px){ .stats{ grid-template-columns:1fr; } }
+    .answer-wrap {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .answer-input {
+      flex: 1;
+      min-width: 220px;
+      border: none;
+      outline: none;
+      border-radius: 18px;
+      color: var(--ink);
+      background: rgba(255,255,255,0.82);
+      box-shadow:
+        inset 8px 8px 18px rgba(170,180,200,0.12),
+        inset -8px -8px 18px rgba(255,255,255,0.7),
+        8px 8px 14px rgba(170,180,200,0.1);
+      padding: 18px 18px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 18px;
+      padding: 17px 22px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow:
+        8px 8px 18px rgba(169,180,198,0.18),
+        -8px -8px 18px rgba(255,255,255,0.7);
+      transition: transform 0.18s ease;
+    }
+
+    .btn:active {
+      transform: translateY(2px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+    }
+
+    .btn.secondary {
+      background: linear-gradient(135deg, #fffaf5, #f8f4ff);
+      color: var(--ink);
+    }
+
+    .feedback {
+      min-height: 90px;
+      border-radius: 20px;
+      padding: 18px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-weight: 800;
+      line-height: 1.6;
+      background: rgba(255,255,255,0.6);
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,0.68);
+    }
+
+    .feedback.success {
+      background: linear-gradient(135deg, #ebfff6, #f5fff9);
+      color: #1d7a5d;
+    }
+
+    .feedback.error {
+      background: linear-gradient(135deg, #fff1f5, #fffafc);
+      color: #b84c66;
+    }
+
+    .feedback.neutral {
+      background: linear-gradient(135deg, #f3f7ff, #fdfdfb);
+      color: var(--ink);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #f9fbff, #edf5ff);
+      border-radius: 20px;
+      padding: 18px 16px;
+      box-shadow:
+        8px 8px 18px rgba(164,172,196,0.14),
+        -8px -8px 16px rgba(255,255,255,0.74);
+    }
+
+    body.dark .stat-card {
+      background: linear-gradient(135deg, rgba(30,39,52,0.72), rgba(31,39,52,0.74));
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: clamp(1.5rem, 2vw, 2.5rem);
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .side-box {
+      background: linear-gradient(135deg, #fdfcff, #f4fbff);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow:
+        10px 10px 22px rgba(166,176,198,0.12),
+        -10px -10px 18px rgba(255,255,255,0.72);
+    }
+
+    body.dark .side-box {
+      background: linear-gradient(135deg, rgba(28,36,48,0.8), rgba(28,35,46,0.8));
+    }
+
+    .side-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .side-title {
+      font-size: 1.08rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .icon-box {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, #ffe8d6, #f5eeff);
+      box-shadow:
+        8px 8px 18px rgba(168,178,198,0.12),
+        -8px -8px 16px rgba(255,255,255,0.72);
+    }
+
+    .tip-text {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 700;
+    }
+
+    .word-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .word-list li {
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f7f9ff, #edf8f4);
+      box-shadow: 6px 6px 12px rgba(162,175,201,0.1);
+    }
+
+    .rule-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-weight: 700;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--primary));
+      box-shadow: 0 0 0 4px rgba(125,142,248,0.12);
+    }
+
+    .progress-box {
+      margin-top: 18px;
+    }
+
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+      overflow: hidden;
+      box-shadow: inset 4px 4px 8px rgba(180,190,214,0.15);
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--green), var(--primary));
+      transition: width 0.25s ease;
+    }
+
+    .achievement-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .achievement-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.52);
+      color: var(--muted);
+      font-weight: 700;
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .achievement-item.unlocked {
+      background: linear-gradient(135deg, #ebfff6, #f7fffb);
+      color: #1d7c5c;
+    }
+
+    .achievement-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #ffe9d3, #f5eeff);
+      font-size: 1rem;
+    }
+
+    .timer-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .timer-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #fef6ff, #eff7ff);
+      box-shadow:
+        8px 8px 16px rgba(160,170,196,0.18),
+        -8px -8px 16px rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .danger {
+      color: var(--red);
+    }
+
+    @media (max-width: 980px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      body {
+        padding: 14px;
+      }
+      .app {
+        padding: 16px;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .answer-wrap {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+      }
+      .header {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="app">
-    <header class="topbar">
+    <header class="header">
       <div class="brand">
         <div class="logo">✍️</div>
         <div>
-          <h1>English Writing: Zero to Hero</h1>
+          <h1>English Writing Lab</h1>
         </div>
       </div>
 
-      <div class="actions">
+      <div class="header-actions">
         <div class="pill">Professor mode</div>
-        <button id="themeToggle" class="theme-btn">🌙 Dark</button>
-        <button id="resetBtn" class="reset-btn">Reset</button>
+        <button id="themeToggle" class="toggle-btn">🌙 Dark</button>
       </div>
     </header>
 
-    <div class="dashboard">
-      <aside class="sidebar">
-        <div class="card">
-          <div class="side-title">
-            <span>Lesson Path</span>
-            <span class="mini-icon">📘</span>
+    <main class="main-grid">
+      <section class="panel">
+        <div class="tabs">
+          <button class="tab active" data-type="word">Word</button>
+          <button class="tab" data-type="sentence">Sentence</button>
+          <button class="tab" data-type="paragraph">Paragraph</button>
+          <button class="tab" data-type="story">Story</button>
+        </div>
+
+        <div class="level-row">
+          <button class="level-btn active" data-level="beginner">Beginner</button>
+          <button class="level-btn" data-level="intermediate">Intermediate</button>
+          <button class="level-btn" data-level="advanced">Advanced</button>
+        </div>
+
+        <div class="challenge-card">
+          <div class="meta-row">
+            <div class="meta-chip" id="categoryChip">Vocabulary</div>
+            <div class="meta-chip" id="levelChip">Beginner</div>
           </div>
 
-          <ul class="lesson-list">
-            <li class="lesson-item active"><span>Word Builder</span><span class="dot-badge"></span></li>
-            <li class="lesson-item"><span>Sentence Flow</span><span class="dot-badge"></span></li>
-            <li class="lesson-item"><span>Paragraph Craft</span><span class="dot-badge"></span></li>
-            <li class="lesson-item"><span>Essay Power</span><span class="dot-badge"></span></li>
+          <div class="label">Today's challenge</div>
+          <h2 id="promptText" class="prompt">honest</h2>
+          <p id="promptDescription" class="description">Write the word correctly and use it in a meaningful sentence.</p>
+
+          <div class="answer-wrap">
+            <input id="answerInput" class="answer-input" type="text" placeholder="Type your answer here..." autocomplete="off" />
+            <button id="checkBtn" class="btn primary">Check</button>
+            <button id="hintBtn" class="btn secondary">Hint</button>
+          </div>
+
+          <div id="feedbackBox" class="feedback neutral">
+            <span id="feedbackText">Your teacher is ready. Begin your writing practice.</span>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Score</div>
+              <div class="stat-value" id="scoreValue">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Streak</div>
+              <div class="stat-value" id="streakValue">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Accuracy</div>
+              <div class="stat-value" id="accuracyValue">0%</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Timer</div>
+              <div class="stat-value" id="timerValue">45s</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side">
+        <div class="side-box">
+          <div class="side-header">
+            <div class="side-title">Professor feedback</div>
+            <div class="icon-box">💡</div>
+          </div>
+          <p class="tip-text" id="teacherTip">Strong writing begins with clear ideas, precise vocabulary, and careful grammar.</p>
+
+          <div class="timer-box">
+            <div class="timer-circle" id="timerCircle">45</div>
+            <div id="timerLabel">Seconds left</div>
+          </div>
+        </div>
+
+        <div class="side-box">
+          <div class="side-header">
+            <div class="side-title">Useful words</div>
+            <div class="icon-box">📚</div>
+          </div>
+          <ul class="word-list" id="wordList">
+            <li>careful</li>
+            <li>brave</li>
+            <li>because</li>
+            <li>growth</li>
+            <li>quiet</li>
+            <li>bright</li>
           </ul>
+        </div>
+
+        <div class="side-box">
+          <div class="side-header">
+            <div class="side-title">Writing rule</div>
+            <div class="icon-box">✅</div>
+          </div>
+
+          <div class="rule-line">
+            <span class="dot"></span>
+            <span id="ruleText">A sentence needs a subject and a verb.</span>
+          </div>
 
           <div class="progress-box">
-            <div class="progress-head"><span>Progress</span><span id="sideProgress">0%</span></div>
-            <div class="progress-track"><div id="sideProgressFill" class="progress-fill"></div></div>
+            <div class="progress-head">
+              <span>Progress</span>
+              <span id="progressLabel">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
           </div>
         </div>
 
-        <div class="card">
-          <div class="side-title">
-            <span>Study Goals</span>
-            <span class="mini-icon">🎯</span>
+        <div class="side-box">
+          <div class="side-header">
+            <div class="side-title">Achievements</div>
+            <div class="icon-box">🏆</div>
           </div>
-
-          <div class="tag">Daily</div>
-          <p class="teacher-tip" style="margin-bottom:10px;">Write clearly, use rich vocabulary, and organize your ideas carefully.</p>
-
-          <div class="xp-card">
-            <div class="xp-line"><span>XP today</span><strong id="xpTodayValue">0</strong></div>
-            <div class="xp-line"><span>Target</span><strong>500</strong></div>
-          </div>
+          <ul class="achievement-list" id="achievementList"></ul>
         </div>
       </aside>
-
-      <main class="main-panel">
-        <div class="card main-card">
-          <div class="top-micro">
-            <div class="tabs">
-              <button class="tab active" data-type="word">Word</button>
-              <button class="tab" data-type="sentence">Sentence</button>
-              <button class="tab" data-type="paragraph">Paragraph</button>
-              <button class="tab" data-type="essay">Essay</button>
-            </div>
-
-            <button id="speakBtn" class="speak-btn" aria-label="Voice input">🎙️ Speak</button>
-          </div>
-
-          <div class="level-row">
-            <button class="level-btn active" data-level="beginner">Beginner</button>
-            <button class="level-btn" data-level="intermediate">Intermediate</button>
-            <button class="level-btn" data-level="advanced">Advanced</button>
-          </div>
-
-          <div class="challenge-box">
-            <div class="meta-row">
-              <div class="meta-chip" id="categoryChip">Vocabulary</div>
-              <div class="meta-chip" id="levelChip">Beginner</div>
-            </div>
-
-            <div class="label">Today's challenge</div>
-            <h2 id="promptText" class="prompt">honest</h2>
-            <p id="promptDescription" class="description">Write the word correctly and use it in a meaningful sentence.</p>
-
-            <div id="essayContainer">
-              <textarea id="essayInput" class="big-textarea" placeholder="Write your paragraph or essay here..."></textarea>
-            </div>
-
-            <div id="normalInputContainer">
-              <div class="answer-wrap">
-                <input id="answerInput" class="answer-input" type="text" placeholder="Type your answer here..." autocomplete="off" />
-                <button id="checkBtn" class="btn primary">Check</button>
-                <button id="hintBtn" class="btn secondary">Hint</button>
-              </div>
-            </div>
-
-            <div id="feedbackBox" class="feedback neutral">
-              <span id="feedbackText">Your teacher is ready. Begin your writing practice.</span>
-            </div>
-
-            <div class="stats">
-              <div class="stat"><div class="stat-label">Score</div><div class="stat-value" id="scoreValue">0</div></div>
-              <div class="stat"><div class="stat-label">Streak</div><div class="stat-value" id="streakValue">0</div></div>
-              <div class="stat"><div class="stat-label">Accuracy</div><div class="stat-value" id="accuracyValue">0%</div></div>
-              <div class="stat"><div class="stat-label">Timer</div><div class="stat-value" id="timerValue">45s</div></div>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      <aside class="right-panel">
-        <div class="card">
-          <div class="side-title">
-            <span>Professor feedback</span>
-            <span class="mini-icon">💡</span>
-          </div>
-
-          <div class="teacher-block">
-            <p id="teacherTip" class="teacher-tip">Strong writing begins with clear ideas, precise vocabulary, and careful grammar.</p>
-            <div class="timer-box">
-              <div id="timerCircle" class="timer-circle">45</div>
-              <div>Seconds left</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="side-title">
-            <span>Useful words</span>
-            <span class="mini-icon">📚</span>
-          </div>
-          <div id="wordCloud" class="word-cloud"></div>
-        </div>
-
-        <div class="card">
-          <div class="side-title">
-            <span>Writing rule</span>
-            <span class="mini-icon">✅</span>
-          </div>
-          <div class="rule-line"><span class="dot"></span><span id="ruleText">A sentence needs a subject and a verb.</span></div>
-          <div class="progress-box">
-            <div class="progress-head"><span>Progress</span><span id="progressLabel">0%</span></div>
-            <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="side-title">
-            <span>Achievements</span>
-            <span class="mini-icon">🏆</span>
-          </div>
-          <ul id="achievementList" class="achievement-list"></ul>
-        </div>
-      </aside>
-    </div>
+    </main>
   </div>
 
   <script>
-    const storageKey = 'english-writing-zero-to-hero-v1';
+    const storageKey = "english-writing-master-save-v1";
 
-    const dictionary = {
+    const tasks = {
       word: {
         beginner: [
-          { prompt:'honest', answer:'honest', tip:'Honest means truthful and sincere.', rule:'Choose words that match meaning exactly.', description:'Write the word correctly and use it in a sentence.', category:'Vocabulary' },
-          { prompt:'kind', answer:'kind', tip:'Kind means showing care and compassion.', rule:'Strong writing uses precise and natural vocabulary.', description:'Write the word correctly and use it in context.', category:'Vocabulary' },
-          { prompt:'brave', answer:'brave', tip:'Brave means full of courage.', rule:'Adjectives describe people and ideas clearly.', description:'Write the correct word and explain its meaning.', category:'Adjectives' },
-          { prompt:'quiet', answer:'quiet', tip:'Quiet means making little or no noise.', rule:'Descriptive words create vivid images.', description:'Write the correct word and use it naturally.', category:'Adjectives' }
+          { prompt: "honest", answer: "honest", tip: "Honest means truthful and sincere.", rule: "Choose words that match your meaning exactly.", description: "Write the word correctly and use it in a meaningful sentence.", category: "Vocabulary" },
+          { prompt: "kind", answer: "kind", tip: "Kind means showing care and compassion.", rule: "Strong writing uses precise and natural vocabulary.", description: "Write the word correctly and use it in context.", category: "Vocabulary" },
+          { prompt: "brave", answer: "brave", tip: "Brave means full of courage.", rule: "Adjectives describe people and ideas in detail.", description: "Write the correct word and explain its meaning in one sentence.", category: "Adjectives" },
+          { prompt: "quiet", answer: "quiet", tip: "Quiet means making little or no noise.", rule: "Use descriptive words to create a clear picture.", description: "Write the correct word and use it naturally.", category: "Adjectives" }
         ],
         intermediate: [
-          { prompt:'improve', answer:'improve', tip:'Improve means to become better.', rule:'Verbs express action clearly.', description:'Write the correct verb and use it in a sentence.', category:'Verbs' },
-          { prompt:'because', answer:'because', tip:'Because explains a reason.', rule:'Use connectors to link ideas logically.', description:'Use the word to show a reason in a sentence.', category:'Connectors' },
-          { prompt:'careful', answer:'careful', tip:'Careful means paying attention.', rule:'Strong writing uses precise words.', description:'Write the word correctly and build a sentence.', category:'Adjectives' },
-          { prompt:'growth', answer:'growth', tip:'Growth means progress or development.', rule:'Nouns name ideas and concepts clearly.', description:'Use this word in a meaningful sentence.', category:'Nouns' }
+          { prompt: "improve", answer: "improve", tip: "Improve means to become better through effort.", rule: "Verbs help your writing express action clearly.", description: "Write the correct verb and use it in a sentence.", category: "Verbs" },
+          { prompt: "because", answer: "because", tip: "Because explains a reason.", rule: "Connectors help ideas flow logically.", description: "Use the word to show a reason in a complete sentence.", category: "Connectors" },
+          { prompt: "careful", answer: "careful", tip: "Careful means paying attention to details.", rule: "Use precise, descriptive words for stronger writing.", description: "Write the correct word and build a clear sentence.", category: "Adjectives" },
+          { prompt: "growth", answer: "growth", tip: "Growth means development or progress.", rule: "Nouns name ideas and help writing feel complete.", description: "Use this word accurately in a sentence.", category: "Nouns" }
         ],
         advanced: [
-          { prompt:'diligent', answer:'diligent', tip:'Diligent means hardworking and attentive.', rule:'Advanced vocabulary strengthens writing.', description:'Use the word in an academic sentence.', category:'Academic Vocabulary' },
-          { prompt:'analyze', answer:'analyze', tip:'Analyze means to examine carefully.', rule:'Formal verbs show deeper thinking.', description:'Use this word correctly in a formal sentence.', category:'Academic Verbs' },
-          { prompt:'evidence', answer:'evidence', tip:'Evidence means proof or facts.', rule:'Support ideas with examples and proof.', description:'Write the word and place it in a clear sentence.', category:'Academic Writing' },
-          { prompt:'clarify', answer:'clarify', tip:'Clarify means to make something understandable.', rule:'Good writing makes ideas clear and precise.', description:'Use this word in a sentence that is easy to understand.', category:'Formal Writing' }
+          { prompt: "diligent", answer: "diligent", tip: "Diligent means hardworking and careful.", rule: "Academic vocabulary can make your writing more precise.", description: "Write the correct word and use it in an advanced context.", category: "Academic Vocabulary" },
+          { prompt: "analyze", answer: "analyze", tip: "Analyze means to examine carefully.", rule: "Use formal verbs to show deeper thinking.", description: "Use this word correctly in a formal sentence.", category: "Action Verbs" },
+          { prompt: "evidence", answer: "evidence", tip: "Evidence means facts or proof that support an idea.", rule: "Support your writing with clear reasons and examples.", description: "Write the exact word and place it in a clear sentence.", category: "Academic Writing" },
+          { prompt: "clarify", answer: "clarify", tip: "Clarify means to make something easier to understand.", rule: "Good writing makes ideas clearer and more readable.", description: "Use this word in a sentence that is easy to follow.", category: "Formal Writing" }
         ]
       },
       sentence: {
         beginner: [
-          { prompt:'I am happy today.', answer:'I am happy today.', tip:'This is a complete sentence with a subject and verb.', rule:'Every sentence needs a subject and a verb.', description:'Write a correct sentence with a clear subject and verb.', category:'Sentence Structure' },
-          { prompt:'She reads a book every night.', answer:'She reads a book every night.', tip:'This is a good habit sentence.', rule:'Use present tense for routines.', description:'Write a complete sentence about a habit.', category:'Present Tense' },
-          { prompt:'The dog is under the table.', answer:'The dog is under the table.', tip:'It describes a location clearly.', rule:'Use place words to make ideas stronger.', description:'Write a sentence telling where something is.', category:'Prepositions' },
-          { prompt:'We play football on Saturday.', answer:'We play football on Saturday.', tip:'Time details improve meaning.', rule:'Add time clues for clarity.', description:'Write a sentence using a time word.', category:'Time Details' }
+          { prompt: "I am happy today.", answer: "I am happy today.", tip: "This sentence is complete and clear.", rule: "A complete sentence has a subject and a verb.", description: "Write a correct sentence with a clear subject and verb.", category: "Sentence Structure" },
+          { prompt: "She reads a book every night.", answer: "She reads a book every night.", tip: "This sentence describes a habit.", rule: "Use the present tense for routines.", description: "Write a complete sentence about a daily habit.", category: "Tense" },
+          { prompt: "The dog is under the table.", answer: "The dog is under the table.", tip: "This sentence describes a place.", rule: "Place words make writing clearer.", description: "Create a sentence that tells where something is.", category: "Prepositions" },
+          { prompt: "We play football on Saturday.", answer: "We play football on Saturday.", tip: "Time words help build complete ideas.", rule: "Time details improve clarity.", description: "Write a sentence using a day or time word.", category: "Time Details" }
         ],
         intermediate: [
-          { prompt:'I stayed home because I was tired.', answer:'I stayed home because I was tired.', tip:'This sentence gives a reason for action.', rule:'Link ideas with reason words.', description:'Write a sentence showing a cause.', category:'Cause & Effect' },
-          { prompt:'She is confident in class.', answer:'She is confident in class.', tip:'This sentence shows emotion and place.', rule:'A complete sentence should express a full idea.', description:'Write a full sentence with feeling and place.', category:'Sentence Building' },
-          { prompt:'The children played outside after school.', answer:'The children played outside after school.', tip:'This includes action and time.', rule:'Details make writing stronger and clearer.', description:'Write a sentence about action and time.', category:'Details' },
-          { prompt:'My brother likes to read every day.', answer:'My brother likes to read every day.', tip:'This sentence shows a daily routine.', rule:'Use present tense for habits.', description:'Write a sentence about a daily routine.', category:'Routine Writing' }
+          { prompt: "I stayed home because I was tired.", answer: "I stayed home because I was tired.", tip: "This sentence gives a reason for an action.", rule: "Use connectors to link ideas together.", description: "Write a sentence that gives a reason.", category: "Cause & Effect" },
+          { prompt: "She is confident in class.", answer: "She is confident in class.", tip: "This sentence tells how a person feels.", rule: "A sentence should have a complete idea.", description: "Write a full sentence with a feeling and a place.", category: "Sentence Building" },
+          { prompt: "The children played outside after school.", answer: "The children played outside after school.", tip: "This sentence includes time and action.", rule: "Add details to make writing stronger.", description: "Write a sentence describing an action and time.", category: "Details" },
+          { prompt: "My brother likes to read every day.", answer: "My brother likes to read every day.", tip: "Every day is a routine clue.", rule: "Use the present tense for habits.", description: "Write a sentence about a daily routine.", category: "Present Tense" }
         ],
         advanced: [
-          { prompt:'Although the weather was bad, we continued the trip.', answer:'Although the weather was bad, we continued the trip.', tip:'This sentence shows contrast.', rule:'Complex sentences improve depth and variety.', description:'Write a sentence showing contrast.', category:'Complex Sentences' },
-          { prompt:'Because the project was difficult, the team worked harder.', answer:'Because the project was difficult, the team worked harder.', tip:'It connects cause and result.', rule:'Organize ideas logically for better writing.', description:'Write a sentence using cause and effect.', category:'Cause & Effect' },
-          { prompt:'The scientist explained the results carefully to avoid confusion.', answer:'The scientist explained the results carefully to avoid confusion.', tip:'This includes purpose and method.', rule:'Advanced sentences are clear, precise, and intentional.', description:'Write a thoughtful sentence with purpose.', category:'Formal Sentence' },
-          { prompt:'By practicing every day, she improved her writing significantly.', answer:'By practicing every day, she improved her writing significantly.', tip:'This sentence uses method and effect.', rule:'Sentence variety makes writing natural.', description:'Write a sentence showing method and result.', category:'Sentence Variety' }
+          { prompt: "Although the weather was bad, we continued the trip.", answer: "Although the weather was bad, we continued the trip.", tip: "This sentence shows contrast.", rule: "Complex sentences add variety and depth.", description: "Write a sentence that clearly shows contrast.", category: "Complex Sentences" },
+          { prompt: "Because the project was difficult, the team worked harder.", answer: "Because the project was difficult, the team worked harder.", tip: "This sentence connects a cause to a result.", rule: "Link your ideas logically to improve writing.", description: "Write a sentence using cause and effect.", category: "Cause & Effect" },
+          { prompt: "The scientist explained the results carefully to avoid confusion.", answer: "The scientist explained the results carefully to avoid confusion.", tip: "This sentence has purpose and method.", rule: "Advanced writing is clear and intentional.", description: "Write a thoughtful sentence that includes purpose.", category: "Formal Sentence" },
+          { prompt: "By practicing every day, she improved her writing significantly.", answer: "By practicing every day, she improved her writing significantly.", tip: "This sentence uses method and result.", rule: "Sentence variety makes writing more natural.", description: "Write a sentence with a method and a result.", category: "Sentence Variety" }
         ]
       },
       paragraph: {
         beginner: [
-          { prompt:'My school is very nice. I like my classroom because it is bright and clean.', answer:'My school is very nice. I like my classroom because it is bright and clean.', tip:'This paragraph has a clear idea and a reason.', rule:'Paragraphs should have one main idea and supporting details.', description:'Write a short paragraph about school life.', category:'Descriptive Writing' },
-          { prompt:'I enjoy reading books at night. It helps me relax and learn new words.', answer:'I enjoy reading books at night. It helps me relax and learn new words.', tip:'This paragraph links a habit to a benefit.', rule:'Write complete sentences that work together.', description:'Write a short paragraph about a useful habit.', category:'Personal Writing' },
-          { prompt:'The park is peaceful in the morning. Many people walk there with their families.', answer:'The park is peaceful in the morning. Many people walk there with their families.', tip:'A paragraph can describe a place and the people there.', rule:'Use details to support your main idea.', description:'Write a paragraph describing a place.', category:'Place Description' }
+          { prompt: "My school is very nice. I like my classroom because it is bright and clean.", answer: "My school is very nice. I like my classroom because it is bright and clean.", tip: "This paragraph has a clear idea and a reason.", rule: "Paragraphs should express one clear idea and include supporting detail.", description: "Write a short paragraph about school life.", category: "Descriptive Writing" },
+          { prompt: "I enjoy reading books at night. It helps me relax and learn new words.", answer: "I enjoy reading books at night. It helps me relax and learn new words.", tip: "This paragraph connects a habit to a benefit.", rule: "Write complete sentences that work together.", description: "Write a short paragraph about a useful habit.", category: "Personal Writing" },
+          { prompt: "The park is peaceful in the morning. Many people walk there with their families.", answer: "The park is peaceful in the morning. Many people walk there with their families.", tip: "A paragraph can describe a place and the people there.", rule: "Use details to support your main idea.", description: "Write a paragraph describing a place.", category: "Place Description" }
         ],
         intermediate: [
-          { prompt:'I decided to practice writing every day because I want to improve. At first, it was difficult, but I became more confident.', answer:'I decided to practice writing every day because I want to improve. At first, it was difficult, but I became more confident.', tip:'This paragraph uses goal, challenge, and result.', rule:'A good paragraph has a main idea and supporting details.', description:'Write a paragraph about a goal you want to achieve.', category:'Goal Writing' },
-          { prompt:'The weather was cold, but we still went to the park. We played games and laughed together.', answer:'The weather was cold, but we still went to the park. We played games and laughed together.', tip:'This paragraph shows contrast and action.', rule:'Use transitions to connect ideas smoothly.', description:'Write a paragraph with contrast and action.', category:'Narrative Writing' },
-          { prompt:'My best friend is kind and honest. He always helps others when they need support.', answer:'My best friend is kind and honest. He always helps others when they need support.', tip:'This paragraph links traits with actions.', rule:'Use examples to support your main idea.', description:'Write a paragraph describing a good friend.', category:'Character Description' }
+          { prompt: "I decided to practice writing every day because I want to improve. At first, it was difficult, but I became more confident.", answer: "I decided to practice writing every day because I want to improve. At first, it was difficult, but I became more confident.", tip: "This paragraph shows a goal, challenge, and result.", rule: "A good paragraph has a main idea and supporting detail.", description: "Write a paragraph about a goal you want to achieve.", category: "Goal Writing" },
+          { prompt: "The weather was cold, but we still went to the park. We played games and laughed together.", answer: "The weather was cold, but we still went to the park. We played games and laughed together.", tip: "Good writing can show contrast and detail.", rule: "Use transitions to connect ideas smoothly.", description: "Write a paragraph with contrast and action.", category: "Narrative Writing" },
+          { prompt: "My best friend is kind and honest. He always helps others when they need support.", answer: "My best friend is kind and honest. He always helps others when they need support.", tip: "This paragraph links personality with actions.", rule: "Use examples to support your main idea.", description: "Write a paragraph describing a good friend.", category: "Character Description" }
         ],
         advanced: [
-          { prompt:'Although the task was demanding, I remained focused and completed it on time. The experience taught me to prepare better and manage my time wisely.', answer:'Although the task was demanding, I remained focused and completed it on time. The experience taught me to prepare better and manage my time wisely.', tip:'Advanced writing uses contrast and reflection.', rule:'Strong paragraphs combine clarity with reflective detail.', description:'Write a paragraph with challenge, effort, and lesson learned.', category:'Reflective Writing' },
-          { prompt:'The speaker explained the problem clearly and offered practical solutions. Her ideas were persuasive because she supported them with relevant examples.', answer:'The speaker explained the problem clearly and offered practical solutions. Her ideas were persuasive because she supported them with relevant examples.', tip:'This paragraph includes analysis and support.', rule:'Use evidence and explanation to strengthen ideas.', description:'Write a paragraph explaining why an idea is persuasive.', category:'Analytical Writing' },
-          { prompt:'By reading widely and practicing regularly, I improved my vocabulary and confidence. These habits changed the way I express my ideas in writing.', answer:'By reading widely and practicing regularly, I improved my vocabulary and confidence. These habits changed the way I express my ideas in writing.', tip:'This paragraph connects habits with progress.', rule:'Good paragraphs show how learning leads to improvement.', description:'Write a paragraph explaining how practice improves writing.', category:'Academic Reflection' }
+          { prompt: "Although the task was demanding, I remained focused and completed it on time. The experience taught me to prepare better and manage my time wisely.", answer: "Although the task was demanding, I remained focused and completed it on time. The experience taught me to prepare better and manage my time wisely.", tip: "Advanced writing uses contrast and reflection.", rule: "Strong paragraphs combine clear ideas and reflective detail.", description: "Write a paragraph with challenge, effort, and lesson learned.", category: "Reflective Writing" },
+          { prompt: "The speaker explained the problem clearly and offered practical solutions. Her ideas were persuasive because she supported them with relevant examples.", answer: "The speaker explained the problem clearly and offered practical solutions. Her ideas were persuasive because she supported them with relevant examples.", tip: "This paragraph shows analysis and support.", rule: "Use evidence and explanation to strengthen your ideas.", description: "Write a paragraph explaining why an idea is persuasive.", category: "Analytical Writing" },
+          { prompt: "By reading widely and practicing regularly, I improved my vocabulary and confidence. These habits changed the way I express my ideas in writing.", answer: "By reading widely and practicing regularly, I improved my vocabulary and confidence. These habits changed the way I express my ideas in writing.", tip: "This paragraph connects habits with progress.", rule: "Good paragraphs show how learning leads to improvement.", description: "Write a paragraph explaining how consistent practice improves writing.", category: "Academic Reflection" }
         ]
       },
-      essay: {
+      story: {
         beginner: [
-          { prompt:'My favorite place', answer:'My favorite place is the park because it is peaceful and full of fresh air. I like to walk there with my family. We sit under a tree and talk about our day. The park makes me feel calm and happy.', tip:'A good paragraph has a clear topic and supporting details.', rule:'Use a topic sentence, details, and a closing idea.', description:'Write a paragraph about a place you like.', category:'Descriptive Essay' },
-          { prompt:'My daily routine', answer:'Every morning, I wake up early and get ready for school. I eat breakfast, brush my teeth, and pack my bag. After school, I do my homework and read for a while. I like my routine because it helps me stay organized.', tip:'Use sequence words like first, then, and after that.', rule:'Good description follows a clear order.', description:'Write a short paragraph about your daily routine.', category:'Routine Writing' },
-          { prompt:'A good friend', answer:'A good friend is kind, honest, and helpful. He listens carefully and supports me when I feel sad. We share stories and help each other with schoolwork. I value friendship because it brings comfort and trust.', tip:'Describe qualities and explain why they matter.', rule:'Use descriptive words and examples.', description:'Write a paragraph describing a good friend.', category:'Character Essay' }
+          { prompt: "The classroom was quiet, but suddenly...", answer: "The classroom was quiet, but suddenly the door opened and a bird flew in.", tip: "Story starters become interesting when action begins quickly.", rule: "A story should have a beginning, action, and reaction.", description: "Finish the story starter with a natural next sentence.", category: "Story Writing" },
+          { prompt: "When I woke up this morning, I noticed...", answer: "When I woke up this morning, I noticed sunlight on my desk and a new notebook beside my bed.", tip: "Strong story writing uses concrete details.", rule: "Use sensory details to make your story vivid.", description: "Continue the story with a clear and natural detail.", category: "Descriptive Story" },
+          { prompt: "I was nervous before the speech, but...", answer: "I was nervous before the speech, but I remembered my teacher's advice and spoke slowly and clearly.", tip: "Good stories show a challenge and how it is handled.", rule: "Characters become stronger through actions and decisions.", description: "Complete the story with a solution or change.", category: "Narrative Writing" }
         ],
         intermediate: [
-          { prompt:'The importance of reading', answer:'Reading is important because it helps us learn new ideas and improve our vocabulary. It also helps us think more clearly and become more creative. When we read, we understand different cultures and perspectives. For these reasons, reading should be part of our daily life.', tip:'Use reasons and examples to strengthen your argument.', rule:'Explain the idea and support it with evidence.', description:'Write a paragraph about why reading is important.', category:'Argumentative Paragraph' },
-          { prompt:'A memorable day', answer:'One of the most memorable days of my life was when I won a school competition. I felt nervous before the event, but I stayed focused and gave my best effort. When the result was announced, I could not believe my success. That day taught me that practice and confidence can lead to achievement.', tip:'Use feelings and details to make the story vivid.', rule:'Good narration includes challenge, action, and reflection.', description:'Write a paragraph about a special memory.', category:'Narrative Essay' },
-          { prompt:'Benefits of exercise', answer:'Exercise has many benefits for both the body and the mind. It keeps us healthy, strengthens our muscles, and improves our energy. It also reduces stress and helps us stay focused in class. For this reason, everyone should exercise regularly.', tip:'Explain more than one benefit.', rule:'Support your main idea with clear reasons.', description:'Write a paragraph on the value of exercise.', category:'Expository Writing' }
+          { prompt: "The rain started as soon as we left home, and then...", answer: "The rain started as soon as we left home, and then we laughed, ran to a shelter, and made the best of the day.", tip: "A good story adds action and emotion.", rule: "Use time and action to move the story forward.", description: "Continue the story with a clear sequence of events.", category: "Sequence Writing" },
+          { prompt: "My grandmother gave me a little notebook, and I promised...", answer: "My grandmother gave me a little notebook, and I promised to write every day about my thoughts and ideas.", tip: "Stories often include meaningful objects and promises.", rule: "Objects and promises give stories emotional value.", description: "Finish the story starter with a personal commitment.", category: "Character Writing" },
+          { prompt: "At the end of the day, I realized that...", answer: "At the end of the day, I realized that even a small effort can change my confidence and my habits.", tip: "Reflection makes stories deeper.", rule: "Strong stories often end with insight or learning.", description: "Complete the story with a lesson or realization.", category: "Reflective Story" }
         ],
         advanced: [
-          { prompt:'The value of discipline', answer:'Discipline is essential because it helps people stay focused, organized, and responsible. Without discipline, it becomes difficult to achieve long-term goals or maintain good habits. People who practice discipline often perform better in school, work, and daily life. In this sense, discipline is not a limitation but a path to success and self-control.', tip:'Use a clear topic sentence and multiple supporting reasons.', rule:'Support your claim with reasons and a strong conclusion.', description:'Write a paragraph explaining the value of discipline.', category:'Academic Essay' },
-          { prompt:'Technology in education', answer:'Technology has transformed education by making learning more interactive and accessible. Students can now research information quickly, communicate with teachers online, and use digital tools to improve their writing and problem-solving skills. However, technology should be used wisely because excessive screen time can reduce concentration. Therefore, balanced and purposeful use of technology can greatly improve learning.', tip:'Include both benefits and caution.', rule:'Strong academic writing considers multiple perspectives.', description:'Write a paragraph on the role of technology in learning.', category:'Analytical Essay' },
-          { prompt:'Learning from mistakes', answer:'Mistakes are often viewed negatively, but they are one of the most valuable sources of learning. When people make errors, they become more aware of their weaknesses and begin to improve. A strong learner does not avoid mistakes; instead, they reflect on them and adjust their strategies. This process builds resilience, confidence, and deeper understanding.', tip:'Reflective writing makes the message stronger.', rule:'Use a clear focus and a summarizing idea.', description:'Write a paragraph explaining how mistakes help people grow.', category:'Reflective Essay' }
+          { prompt: "Although the city was crowded, the old man remained calm and continued his routine.", answer: "Although the city was crowded, the old man remained calm and continued his routine, proving that discipline can create peace even in chaos.", tip: "Advanced stories use contrast and meaning.", rule: "Meaningful stories often reveal character through calm actions.", description: "Write a strong continuation with character insight.", category: "Advanced Narrative" },
+          { prompt: "The first draft was weak, but the second one felt different because...", answer: "The first draft was weak, but the second one felt different because I revised carefully, removed repetition, and strengthened my ideas with detail.", tip: "This story starter links effort to improvement.", rule: "Revision is one of the strongest tools in writing.", description: "Finish the story with a lesson about improvement.", category: "Revision Writing" },
+          { prompt: "The journey was difficult, yet it taught me that...", answer: "The journey was difficult, yet it taught me that patience, preparation, and determination can turn struggle into progress.", tip: "Great closing lines often reveal a lesson.", rule: "Reflective writing gives meaning to experience.", description: "Write a thoughtful conclusion to the story.", category: "Reflective Story" }
         ]
       }
     };
 
     const state = {
-      type:'word', level:'beginner', score:0, streak:0, total:0, correct:0, timer:45, timerId:null,
-      current:null, xp:0,
-      achievements:{ firstWin:false, streak3:false, accuracyHigh:false, writingStar:false }
+      type: "word",
+      level: "beginner",
+      score: 0,
+      streak: 0,
+      total: 0,
+      correct: 0,
+      timer: 45,
+      timerId: null,
+      achievements: {
+        firstWin: false,
+        streak3: false,
+        accuracyHigh: false,
+        writingStar: false
+      },
+      current: null
     };
 
-    const elements = {
-      promptText: document.getElementById('promptText'),
-      promptDescription: document.getElementById('promptDescription'),
-      categoryChip: document.getElementById('categoryChip'),
-      levelChip: document.getElementById('levelChip'),
-      answerInput: document.getElementById('answerInput'),
-      essayInput: document.getElementById('essayInput'),
-      feedbackBox: document.getElementById('feedbackBox'),
-      feedbackText: document.getElementById('feedbackText'),
-      scoreValue: document.getElementById('scoreValue'),
-      streakValue: document.getElementById('streakValue'),
-      accuracyValue: document.getElementById('accuracyValue'),
-      timerValue: document.getElementById('timerValue'),
-      timerCircle: document.getElementById('timerCircle'),
-      teacherTip: document.getElementById('teacherTip'),
-      ruleText: document.getElementById('ruleText'),
-      progressLabel: document.getElementById('progressLabel'),
-      progressFill: document.getElementById('progressFill'),
-      sideProgress: document.getElementById('sideProgress'),
-      sideProgressFill: document.getElementById('sideProgressFill'),
-      wordCloud: document.getElementById('wordCloud'),
-      achievementList: document.getElementById('achievementList'),
-      themeToggle: document.getElementById('themeToggle'),
-      essayContainer: document.getElementById('essayContainer'),
-      normalInputContainer: document.getElementById('normalInputContainer'),
-      resetBtn: document.getElementById('resetBtn'),
-      speakBtn: document.getElementById('speakBtn'),
-      xpTodayValue: document.getElementById('xpTodayValue')
-    };
+    const promptText = document.getElementById("promptText");
+    const promptDescription = document.getElementById("promptDescription");
+    const categoryChip = document.getElementById("categoryChip");
+    const levelChip = document.getElementById("levelChip");
+    const answerInput = document.getElementById("answerInput");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackText = document.getElementById("feedbackText");
+    const scoreValue = document.getElementById("scoreValue");
+    const streakValue = document.getElementById("streakValue");
+    const accuracyValue = document.getElementById("accuracyValue");
+    const timerValue = document.getElementById("timerValue");
+    const timerCircle = document.getElementById("timerCircle");
+    const teacherTip = document.getElementById("teacherTip");
+    const ruleText = document.getElementById("ruleText");
+    const progressLabel = document.getElementById("progressLabel");
+    const progressFill = document.getElementById("progressFill");
+    const wordList = document.getElementById("wordList");
+    const achievementList = document.getElementById("achievementList");
+    const themeToggle = document.getElementById("themeToggle");
 
-    function normalize(v){ return String(v).toLowerCase().trim().replace(/\s+/g,' '); }
+    function normalize(v) {
+      return String(v).toLowerCase().trim().replace(/\\s+/g, " ");
+    }
 
-    function saveState(){
+    function saveState() {
       localStorage.setItem(storageKey, JSON.stringify({
-        type:state.type, level:state.level, score:state.score, streak:state.streak, total:state.total,
-        correct:state.correct, xp:state.xp, achievements:state.achievements
+        type: state.type,
+        level: state.level,
+        score: state.score,
+        streak: state.streak,
+        total: state.total,
+        correct: state.correct,
+        achievements: state.achievements
       }));
     }
 
-    function loadState(){
-      try{
+    function loadState() {
+      try {
         const raw = localStorage.getItem(storageKey);
-        if(!raw) return;
+        if (!raw) return;
         const saved = JSON.parse(raw);
-        if(saved.type) state.type = saved.type;
-        if(saved.level) state.level = saved.level;
-        if(typeof saved.score === 'number') state.score = saved.score;
-        if(typeof saved.streak === 'number') state.streak = saved.streak;
-        if(typeof saved.total === 'number') state.total = saved.total;
-        if(typeof saved.correct === 'number') state.correct = saved.correct;
-        if(typeof saved.xp === 'number') state.xp = saved.xp;
-        if(saved.achievements) state.achievements = {...state.achievements, ...saved.achievements};
-      } catch (e) {}
+        if (saved.type) state.type = saved.type;
+        if (saved.level) state.level = saved.level;
+        if (typeof saved.score === "number") state.score = saved.score;
+        if (typeof saved.streak === "number") state.streak = saved.streak;
+        if (typeof saved.total === "number") state.total = saved.total;
+        if (typeof saved.correct === "number") state.correct = saved.correct;
+        if (saved.achievements) {
+          state.achievements = { ...state.achievements, ...saved.achievements };
+        }
+      } catch (e) {
+        console.log("Could not load saved data.");
+      }
     }
 
-    function updateWordCloud(){
+    function getPool() {
+      return tasks[state.type][state.level];
+    }
+
+    function randomTask() {
+      const pool = getPool();
+      const idx = Math.floor(Math.random() * pool.length);
+      return pool[idx];
+    }
+
+    function updateWordSuggestions() {
       const map = {
-        word:['careful','brave','because','growth','quiet','bright'],
-        sentence:['clear','reason','detail','purpose','flow','connection'],
-        paragraph:['describe','support','clarity','improve','reflection','structure'],
-        essay:['evidence','argument','clarify','persuade','analysis','insight']
+        word: ["careful", "brave", "because", "growth", "quiet", "bright"],
+        sentence: ["clear", "purpose", "detail", "reason", "correct", "flow"],
+        paragraph: ["describe", "reflect", "detail", "support", "improve", "clarity"],
+        story: ["mystery", "suddenly", "adventure", "dream", "spark", "lesson"]
       };
       const words = map[state.type] || map.word;
-      elements.wordCloud.innerHTML = '';
+      wordList.innerHTML = "";
       words.forEach(word => {
-        const span = document.createElement('span');
-        span.textContent = word;
-        elements.wordCloud.appendChild(span);
+        const li = document.createElement("li");
+        li.textContent = word;
+        wordList.appendChild(li);
       });
     }
 
-    function setInputMode(){
-      const isEssay = state.type === 'essay';
-      elements.essayContainer.style.display = isEssay ? 'block' : 'none';
-      elements.normalInputContainer.style.display = isEssay ? 'none' : 'block';
-    }
-
-    function updateStats(){
-      elements.scoreValue.textContent = state.score;
-      elements.streakValue.textContent = state.streak;
-      elements.xpTodayValue.textContent = state.xp;
+    function updateStats() {
+      scoreValue.textContent = state.score;
+      streakValue.textContent = state.streak;
 
       const accuracy = state.total === 0 ? 0 : Math.round((state.correct / state.total) * 100);
-      elements.accuracyValue.textContent = accuracy + '%';
+      accuracyValue.textContent = accuracy + "%";
 
       const progress = state.total === 0 ? 0 : Math.min(100, Math.round((state.correct / state.total) * 100));
-      elements.progressFill.style.width = progress + '%';
-      elements.progressLabel.textContent = progress + '%';
-
-      const sideProgress = state.total === 0 ? 0 : Math.min(100, Math.round((state.correct / state.total) * 100));
-      elements.sideProgress.textContent = sideProgress + '%';
-      elements.sideProgressFill.style.width = sideProgress + '%';
+      progressFill.style.width = progress + "%";
+      progressLabel.textContent = progress + "%";
     }
 
-    function drawAchievements(){
-      const items = [
-        { label:'First win', icon:'✨', unlocked:state.achievements.firstWin },
-        { label:'3 streak', icon:'🔥', unlocked:state.achievements.streak3 },
-        { label:'Accurate writer', icon:'🎯', unlocked:state.achievements.accuracyHigh },
-        { label:'Writing star', icon:'🌟', unlocked:state.achievements.writingStar }
+    function updateAchievements() {
+      const achievements = [
+        { label: "First win", icon: "✨", unlocked: state.achievements.firstWin },
+        { label: "3 streak", icon: "🔥", unlocked: state.achievements.streak3 },
+        { label: "Accurate writer", icon: "🎯", unlocked: state.achievements.accuracyHigh },
+        { label: "Writing star", icon: "🌟", unlocked: state.achievements.writingStar }
       ];
-      elements.achievementList.innerHTML = '';
-      items.forEach(item => {
-        const li = document.createElement('li');
-        li.className = 'achievement-item ' + (item.unlocked ? 'unlocked' : '');
+
+      achievementList.innerHTML = "";
+      achievements.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "achievement-item " + (item.unlocked ? "unlocked" : "");
         li.innerHTML = `<span class="achievement-badge">${item.icon}</span>${item.label}`;
-        elements.achievementList.appendChild(li);
+        achievementList.appendChild(li);
       });
     }
 
-    function checkAchievements(){
-      if(state.correct >= 1) state.achievements.firstWin = true;
-      if(state.streak >= 3) state.achievements.streak3 = true;
-      if(state.total >= 5 && ((state.correct / state.total) * 100) >= 70) state.achievements.accuracyHigh = true;
-      if(state.score >= 100) state.achievements.writingStar = true;
-      drawAchievements(); saveState();
+    function checkAchievements() {
+      if (state.correct >= 1) state.achievements.firstWin = true;
+      if (state.streak >= 3) state.achievements.streak3 = true;
+      if (state.total >= 5 && ((state.correct / state.total) * 100) >= 70) state.achievements.accuracyHigh = true;
+      if (state.score >= 100) state.achievements.writingStar = true;
+
+      updateAchievements();
+      saveState();
     }
 
-    function updateTimerDisplay(){
-      elements.timerValue.textContent = state.timer + 's';
-      elements.timerCircle.textContent = state.timer;
-      elements.timerCircle.style.color = state.timer <= 10 ? 'var(--danger)' : 'var(--text)';
-    }
-
-    function startTimer(){
-      clearInterval(state.timerId);
-      state.timer = 45;
-      updateTimerDisplay();
-      state.timerId = setInterval(() => {
-        state.timer -= 1;
-        updateTimerDisplay();
-        if(state.timer <= 0){ clearInterval(state.timerId); handleTimeout(); }
-      }, 1000);
-    }
-
-    function handleTimeout(){
-      state.total += 1; state.streak = 0;
-      elements.feedbackBox.className = 'feedback error';
-      elements.feedbackText.textContent = `Time is up! The correct answer is: "${state.current.answer}"`;
-      updateStats(); checkAchievements(); saveState();
-      setTimeout(() => setTask(), 1500);
-    }
-
-    function randomTask(){
-      const pool = dictionary[state.type][state.level];
-      return pool[Math.floor(Math.random() * pool.length)];
-    }
-
-    function setTask(){
+    function setTask() {
       state.current = randomTask();
-      elements.promptText.textContent = state.current.prompt;
-      elements.promptDescription.textContent = state.current.description;
-      elements.categoryChip.textContent = state.current.category;
-      elements.levelChip.textContent = state.level.charAt(0).toUpperCase() + state.level.slice(1);
-      elements.teacherTip.textContent = state.current.tip;
-      elements.ruleText.textContent = state.current.rule;
 
-      elements.answerInput.value = '';
-      elements.essayInput.value = '';
-      elements.feedbackBox.className = 'feedback neutral';
-      elements.feedbackText.textContent = 'Your teacher is ready. Begin your writing practice.';
+      promptText.textContent = state.current.prompt;
+      promptDescription.textContent = state.current.description;
+      categoryChip.textContent = state.current.category;
+      levelChip.textContent = state.level.charAt(0).toUpperCase() + state.level.slice(1);
+      teacherTip.textContent = state.current.tip;
+      ruleText.textContent = state.current.rule;
 
-      setInputMode();
+      answerInput.value = "";
+      answerInput.focus();
+
+      feedbackBox.className = "feedback neutral";
+      feedbackText.textContent = "Your teacher is ready. Begin your writing practice.";
+
       startTimer();
       updateStats();
     }
 
-    function showHint(){
-      if(!state.current) return;
-      elements.feedbackBox.className = 'feedback neutral';
-      elements.feedbackText.textContent = 'Hint: ' + state.current.tip;
-    }
-
-    function createGrammarComment(text){
-      const cleaned = text.trim();
-      if(!cleaned) return 'Try writing a sentence first.';
-      const words = cleaned.split(/\s+/);
-      if(words.length < 3) return 'Your answer is too short. Add more detail and a clearer idea.';
-      if(!(/[.!?]$/.test(cleaned))) return 'Add a full stop or question mark to finish the sentence clearly.';
-      if(!(/[A-Z]/.test(cleaned.charAt(0)))) return 'Start with a capital letter.';
-      if(!/\b(is|are|was|were|am|be|have|has|do|does|did|can|will|like|read|write|play|study|go)\b/i.test(cleaned)) return 'Try adding a clear verb to make your sentence stronger.';
-      return 'Great structure. Consider adding a stronger adjective or a clearer example.';
-    }
-
-    function essayQualityScore(text){
-      const words = text.split(/\s+/).filter(Boolean);
-      const punctuation = (text.match(/[.!?]/g) || []).length;
-      const hasReason = /\b(because|therefore|however|although|while|since|so)\b/i.test(text);
-      const hasVerb = /\b(is|are|was|were|be|have|has|do|does|did|can|will|write|read|play|learn|study|improve|help)\b/i.test(text);
-      let score = 0;
-      if(words.length >= 18) score += 40;
-      if(punctuation >= 2) score += 20;
-      if(hasReason) score += 20;
-      if(hasVerb) score += 20;
-      return score;
-    }
-
-    function checkEssay(){
-      const userEssay = normalize(elements.essayInput.value);
-      const model = normalize(state.current.answer);
-      if(!userEssay){ elements.feedbackBox.className = 'feedback error'; elements.feedbackText.textContent = 'Please write something before checking.'; return; }
-
-      state.total += 1; const quality = essayQualityScore(userEssay); const hasCore = userEssay.length >= model.length * 0.55;
-      if(quality >= 60 || hasCore){
-        state.correct += 1; state.score += 20; state.streak += 1; state.xp += 25;
-        elements.feedbackBox.className = 'feedback success';
-        elements.feedbackText.textContent = `Excellent! ${createGrammarComment(userEssay)}`;
+    function updateTimerDisplay() {
+      timerValue.textContent = state.timer + "s";
+      timerCircle.textContent = state.timer;
+      if (state.timer <= 10) {
+        timerCircle.classList.add("danger");
       } else {
-        state.streak = 0; elements.feedbackBox.className = 'feedback error';
-        elements.feedbackText.textContent = `Good attempt. Try to expand your idea: "${state.current.answer}"`;
+        timerCircle.classList.remove("danger");
       }
-
-      clearInterval(state.timerId); updateStats(); checkAchievements(); saveState();
-      setTimeout(() => setTask(), 1500);
     }
 
-    function checkAnswer(){
-      if(!state.current) return;
-      if(state.type === 'essay'){ checkEssay(); return; }
+    function startTimer() {
+      clearInterval(state.timerId);
+      state.timer = 45;
+      updateTimerDisplay();
 
-      const userAnswer = normalize(elements.answerInput.value);
+      state.timerId = setInterval(() => {
+        state.timer -= 1;
+        updateTimerDisplay();
+
+        if (state.timer <= 0) {
+          clearInterval(state.timerId);
+          handleTimeout();
+        }
+      }, 1000);
+    }
+
+    function handleTimeout() {
+      state.total += 1;
+      state.streak = 0;
+      feedbackBox.className = "feedback error";
+      feedbackText.textContent = `Time is up! The correct answer was: "${state.current.answer}"`;
+      updateStats();
+      checkAchievements();
+      saveState();
+      setTimeout(() => {
+        setTask();
+      }, 1500);
+    }
+
+    function showHint() {
+      if (!state.current) return;
+      feedbackBox.className = "feedback neutral";
+      feedbackText.textContent = `Hint: ${state.current.tip}`;
+    }
+
+    function checkAnswer() {
+      if (!state.current) return;
+
+      const userAnswer = normalize(answerInput.value);
       const correctAnswer = normalize(state.current.answer);
+
       state.total += 1;
 
-      if(userAnswer === correctAnswer){
-        state.correct += 1; state.score += 10; state.streak += 1; state.xp += 15;
-        elements.feedbackBox.className = 'feedback success';
-        elements.feedbackText.textContent = `Excellent! ${createGrammarComment(userAnswer)}`;
+      if (userAnswer === correctAnswer) {
+        state.correct += 1;
+        state.score += 10;
+        state.streak += 1;
+        feedbackBox.className = "feedback success";
+        feedbackText.textContent = "Excellent! Your answer is correct and your writing is strong.";
       } else {
-        state.streak = 0; elements.feedbackBox.className = 'feedback error';
-        elements.feedbackText.textContent = `Not quite. Try this model: "${state.current.answer}"`;
+        state.streak = 0;
+        feedbackBox.className = "feedback error";
+        feedbackText.textContent = `Not quite. Try this model: "${state.current.answer}"`;
       }
 
-      clearInterval(state.timerId); updateStats(); checkAchievements(); saveState();
-      setTimeout(() => setTask(), 1400);
+      clearInterval(state.timerId);
+      updateStats();
+      checkAchievements();
+      saveState();
+
+      setTimeout(() => {
+        setTask();
+      }, 1400);
     }
 
-    function setType(type){
+    function setType(type) {
       state.type = type;
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab.dataset.type === type));
-      updateWordCloud(); setTask();
-    }
-
-    function setLevel(level){
-      state.level = level;
-      document.querySelectorAll('.level-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.level === level));
+      document.querySelectorAll(".tab").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.type === type);
+      });
+      updateWordSuggestions();
       setTask();
     }
 
-    function resetPractice(){
-      state.score = 0; state.streak = 0; state.total = 0; state.correct = 0; state.xp = 0;
-      state.achievements = { firstWin:false, streak3:false, accuracyHigh:false, writingStar:false };
-      updateStats(); drawAchievements(); saveState(); setTask();
+    function setLevel(level) {
+      state.level = level;
+      document.querySelectorAll(".level-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.level === level);
+      });
+      setTask();
     }
 
-    function applyTheme(){
-      const dark = document.body.classList.contains('dark');
-      elements.themeToggle.textContent = dark ? '☀️ Light' : '🌙 Dark';
-      localStorage.setItem('themeMode', dark ? 'dark' : 'light');
+    function saveThemePreference() {
+      localStorage.setItem("themeMode", document.body.classList.contains("dark") ? "dark" : "light");
     }
 
-    function setupSpeechRecognition(){
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if(!SpeechRecognition){
-        elements.speakBtn.disabled = true;
-        elements.speakBtn.textContent = '🎙️ Not supported';
-        return;
-      }
-      const recognition = new SpeechRecognition();
-      recognition.lang = 'en-US';
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-      recognition.onstart = () => elements.speakBtn.textContent = '🎙️ Listening...';
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        if(state.type === 'essay'){ elements.essayInput.value = transcript; }
-        else { elements.answerInput.value = transcript; }
-        elements.feedbackText.textContent = 'Voice captured. Ready to check.';
-      };
-      recognition.onerror = () => elements.feedbackText.textContent = "Voice input isn't available right now. Please type manually.";
-      recognition.onend = () => elements.speakBtn.textContent = '🎙️ Speak';
-      elements.speakBtn.addEventListener('click', () => recognition.start());
+    function applyTheme() {
+      const isDark = document.body.classList.contains("dark");
+      themeToggle.textContent = isDark ? "☀️ Light" : "🌙 Dark";
+      saveThemePreference();
     }
 
-    document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => setType(tab.dataset.type)));
-    document.querySelectorAll('.level-btn').forEach(btn => btn.addEventListener('click', () => setLevel(btn.dataset.level)));
-    document.getElementById('checkBtn').addEventListener('click', checkAnswer);
-    document.getElementById('hintBtn').addEventListener('click', showHint);
-    document.getElementById('resetBtn').addEventListener('click', resetPractice);
-    elements.answerInput.addEventListener('keydown', (event) => { if(event.key === 'Enter') checkAnswer(); });
-    elements.essayInput.addEventListener('keydown', (event) => { if((event.ctrlKey || event.metaKey) && event.key === 'Enter') checkAnswer(); });
-    elements.themeToggle.addEventListener('click', () => { document.body.classList.toggle('dark'); applyTheme(); });
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      applyTheme();
+    });
+
+    document.querySelectorAll(".tab").forEach(btn => {
+      btn.addEventListener("click", () => setType(btn.dataset.type));
+    });
+
+    document.querySelectorAll(".level-btn").forEach(btn => {
+      btn.addEventListener("click", () => setLevel(btn.dataset.level));
+    });
+
+    document.getElementById("checkBtn").addEventListener("click", checkAnswer);
+    document.getElementById("hintBtn").addEventListener("click", showHint);
+
+    answerInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") checkAnswer();
+    });
 
     loadState();
-    if(localStorage.getItem('themeMode') === 'dark') document.body.classList.add('dark');
-    updateWordCloud(); drawAchievements(); applyTheme(); setupSpeechRecognition(); setTask(); updateStats();
+
+    if (localStorage.getItem("themeMode") === "dark") {
+      document.body.classList.add("dark");
+    }
+
+    applyTheme();
+    updateWordSuggestions();
+    updateAchievements();
+    setTask();
+    updateStats();
   </script>
 </body>
 </html>
