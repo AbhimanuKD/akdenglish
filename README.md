@@ -1,17 +1,22 @@
-# akdenglish
+# English Writing Coach Pro
 
-A public English writing practice app with a claymorphism UI.
+A free public English learning app for practicing vocabulary, sentence structure, paragraph writing, and essay writing.
+
+## Live demo
+https://abhimanukd.github.io/akdenglish/
 
 ## Features
-- Word, sentence, paragraph, and essay practice
-- Beginner / intermediate / advanced levels
-- Timer and streak tracking
-- Dark mode support
-- Voice input support
-- XP and achievement system
+- Vocabulary practice
+- Sentence building
+- Paragraph writing
+- Essay practice
+- Timed challenges
+- Streak and XP system
+- Dark mode
+- Voice input
 
 ## Run locally
-Open `index.html` in a browser.
+Open `index.html` in any browser.
 
 ## Repository
 https://github.com/AbhimanuKD/akdenglish
