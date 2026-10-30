@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="English Writing Studio — a friendly, no-login place to practise and improve your English writing from A1 to C2." />
+  <title>English Writing Studio</title>
+
+  <!-- Apply the saved theme before paint to avoid a flash of the wrong theme. -->
+  <script>
+    (function () {
+      try {
+        function readAppearance() {
+          try {
+            var raw = localStorage.getItem("ews.settings.v1");
+            if (raw) {
+              var s = JSON.parse(raw);
+              if (s && s.appearance) return s.appearance;
+            }
+          } catch (e) {}
+          return "system";
+        }
+        var appearance = readAppearance();
+        function resolve(a) {
+          if (a === "light" || a === "dark") return a;
+          try {
+            if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+          } catch (e) {}
+          return "light";
+        }
+        document.documentElement.setAttribute("data-theme", resolve(appearance));
+        document.documentElement.setAttribute("data-appearance", appearance);
+        if (window.matchMedia) {
+          window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+            if (readAppearance() === "system") {
+              document.documentElement.setAttribute("data-theme", e.matches ? "dark" : "light");
+            }
+          });
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✍️</text></svg>" />
+</head>
+<body>
+  <a class="skip-link" href="#app">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#/" aria-label="English Writing Studio home">
+        <span class="brand-mark" aria-hidden="true">✍️</span>
+        <span class="brand-name">English Writing Studio</span>
+      </a>
+
+      <button class="icon-btn nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="#/" data-nav="home">Home</a>
+        <a href="#/path" data-nav="path">Learning Path</a>
+        <a href="#/writing" data-nav="writing">My Writing</a>
+        <a href="#/progress" data-nav="progress">Progress</a>
+        <a href="#/settings" data-nav="settings">Settings</a>
+        <a href="#/about" data-nav="about">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="sound-toggle" aria-label="Focus sounds" aria-haspopup="dialog" title="Focus sounds">
+          <span aria-hidden="true">🎧</span>
+        </button>
+        <button class="icon-btn" id="theme-toggle" aria-label="Change appearance" title="Change appearance">
+          <span id="theme-toggle-icon" aria-hidden="true">🌓</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <div class="app-loading" role="status">
+      <span class="spinner" aria-hidden="true"></span>
+      <span>Loading…</span>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>English Writing Studio — practise at your own pace. No login, no pressure.</p>
+      <p>
+        <a href="https://www.instagram.com/abhimanu_011/" target="_blank" rel="noopener noreferrer">
+          <span aria-hidden="true">📷</span> Instagram
+        </a>
+      </p>
+    </div>
+  </footer>
+
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <div id="dialog-root"></div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
