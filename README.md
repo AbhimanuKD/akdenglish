@@ -2,7 +2,7 @@
 
 English Writing Studio is a lightweight, privacy-focused web application designed to help users practice English writing at their own pace without the pressure of creating an account or logging in. 
 
-Live Demo: https://github.io
+Live Demo: https://abhimanukd.github.io/akdenglish/
 
 ---
 
