@@ -5,6 +5,7 @@ import * as store from "./store.js";
 import * as sounds from "./sounds.js";
 import * as util from "./util.js";
 import { renderRoute } from "./views.js";
+import { enhanceTraining } from "./training.js";
 
 const appEl = document.getElementById("app");
 let currentCleanup = null;
@@ -229,6 +230,7 @@ async function render() {
     const cleanup = view.setup();
     if (typeof cleanup === "function") currentCleanup = cleanup;
   }
+  try { enhanceTraining(route); } catch (err) { console.error("Could not render learning progress:", err); }
   updateNavActive(route.name);
   window.scrollTo(0, 0);
   appEl.focus({ preventScroll: true });

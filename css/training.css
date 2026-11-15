@@ -1,0 +1,51 @@
+/* Game-inspired learning path: cheerful, original styling (not affiliated with Duolingo). */
+.training-dashboard {
+  --training-green: #58cc02;
+  --training-green-dark: #46a302;
+  margin: 18px 0 24px;
+  border: 2px solid color-mix(in srgb, var(--training-green) 28%, var(--border));
+  border-radius: 22px;
+  padding: clamp(18px, 3vw, 28px);
+  background: linear-gradient(145deg, var(--accent-soft-2), var(--bg-elevated) 72%);
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--training-green) 22%, var(--border)), var(--shadow-sm);
+}
+.training-dashboard__top { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.training-dashboard__top h2 { margin: 4px 0 5px; }
+.training-eyebrow { color: var(--accent-text); font-size: .73rem; font-weight: 800; letter-spacing: .12em; }
+.training-continue { flex: 0 0 auto; border-radius: 14px; box-shadow: 0 4px 0 color-mix(in srgb, var(--accent-strong) 72%, #000); }
+.training-continue:active { box-shadow: 0 2px 0 color-mix(in srgb, var(--accent-strong) 72%, #000); }
+.training-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 22px 0; }
+.training-metric { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 9px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--bg-elevated); }
+.training-metric__icon { grid-row: span 2; font-size: 1.45rem; }
+.training-metric strong { font-size: 1.15rem; line-height: 1.2; }
+.training-metric > span:last-child { color: var(--text-muted); font-size: .78rem; }
+.training-level-progress__labels { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 7px; font-size: .87rem; }
+.training-level-progress .progress { height: 12px; }
+.training-level-progress .progress > span { background: linear-gradient(90deg, #58cc02, #8ee000); }
+.training-note { margin-top: 12px; color: var(--text-muted); font-size: .82rem; }
+.training-lesson { position: relative; border-width: 2px; border-radius: 14px; padding: 12px 14px; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+.training-lesson:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.training-lesson--done { border-color: color-mix(in srgb, var(--success) 55%, var(--border)); }
+.training-lesson--done .check-dot { display: inline-grid; place-items: center; width: 23px; height: 23px; margin-right: 4px; border-radius: 50%; color: #fff; background: var(--success); }
+.training-lesson--next { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.training-lesson--next::after { content: "NEXT LESSON"; align-self: center; color: var(--accent-text); font-size: .66rem; font-weight: 800; letter-spacing: .08em; }
+.training-home-card { display: flex; align-items: center; gap: 14px; padding: 14px 18px; margin: -4px 0 22px; border: 2px solid color-mix(in srgb, var(--accent) 35%, var(--border)); border-radius: 16px; background: var(--bg-elevated); color: var(--text); box-shadow: 0 4px 0 color-mix(in srgb, var(--accent) 18%, var(--border)); text-decoration: none; transition: transform .15s ease; }
+.training-home-card:hover { transform: translateY(-2px); text-decoration: none; }
+.training-home-card__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; background: var(--accent-soft); font-size: 1.4rem; }
+.training-home-card strong, .training-home-card small { display: block; }
+.training-home-card small { margin-top: 2px; color: var(--text-muted); }
+.training-home-card__arrow { margin-left: auto; color: var(--accent-text); font-size: 1.4rem; font-weight: 800; }
+@media (max-width: 620px) {
+  .training-dashboard__top { align-items: flex-start; flex-direction: column; }
+  .training-continue { width: 100%; }
+  .training-metrics { gap: 7px; }
+  .training-metric { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 3px; padding: 10px 6px; }
+  .training-metric__icon { grid-row: auto; }
+  .training-metric strong { font-size: 1rem; }
+  .training-metric > span:last-child { font-size: .7rem; }
+  .training-lesson--next::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .training-lesson, .training-home-card { transition: none; }
+  .training-lesson:hover, .training-home-card:hover { transform: none; }
+}
